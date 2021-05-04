@@ -294,6 +294,8 @@
             $scope.apiMiddleware.download($scope.temps,$scope.fileNavigator).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('download', true);
+            }, function() {
+                $scope.apiMiddleware.apiHandler.asyncSuccess = false;
             });
         };
 

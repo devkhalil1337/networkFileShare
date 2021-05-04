@@ -8,7 +8,7 @@
             multiLang: true,
 
             queryParams: '',
-            baseUrl: 'http://e70d4fff4378.ngrok.io/api',
+            baseUrl: 'http://localhost:5556/api',//'http://e70d4fff4378.ngrok.io/api',
             listUrl: '/nfs/getDirectoryStructure',
             fileUrl: '/file/',
             directoryUrl:'/directory/',
