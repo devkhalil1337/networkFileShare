@@ -198,16 +198,16 @@
             });
         };
 
-        $scope.download = function() {
-            var item = $scope.singleSelection();
-            if ($scope.selectionHas('dir')) {
-                return;
-            }
-            if (item) {
-                return $scope.apiMiddleware.download(item);
-            }
-            return $scope.apiMiddleware.downloadMultiple($scope.temps);
-        };
+        // $scope.download = function() {
+        //     var item = $scope.singleSelection();
+        //     if ($scope.selectionHas('dir')) {
+        //         return;
+        //     }
+        //     if (item) {
+        //         return $scope.apiMiddleware.download(item);
+        //     }
+        //     return $scope.apiMiddleware.downloadMultiple($scope.temps);
+        // };
 
         $scope.copy = function() {
             var item = $scope.singleSelection();
@@ -282,6 +282,18 @@
             $scope.apiMiddleware.remove($scope.temps).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('remove', true);
+            });
+        };
+
+        $scope.download = function() {
+            var anyItem = $scope.singleSelection() || $scope.temps[0];
+            if (!anyItem || anyItem.isFolder()) {
+                $scope.apiMiddleware.apiHandler.error = $translate.instant('error_cannot_be_file');
+                return false;
+            }
+            $scope.apiMiddleware.download($scope.temps,$scope.fileNavigator).then(function() {
+                $scope.fileNavigator.refresh();
+                $scope.modal('download', true);
             });
         };
 

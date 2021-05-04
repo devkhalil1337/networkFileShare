@@ -15,6 +15,7 @@
             uploadUrl: '/file?destination=',
             createFolderUrl: '/directory?directoryPath=',
             moveUrl: '/moveFile?targetPath=',
+            downloadUrl: '/file/',
             basePath: '/',
 
             searchForm: true,

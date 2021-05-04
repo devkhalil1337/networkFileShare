@@ -228,21 +228,23 @@
             return path && [apiUrl, $httpParamSerializer(data)].join('?');
         };
 
-        ApiHandler.prototype.download = function(apiUrl, itemPath, toFilename, downloadByAjax, forceNewWindow) {
+        ApiHandler.prototype.download = function(apiUrl, toFilename) {
             var self = this;
-            var url = this.getUrl(apiUrl, itemPath);
-
-            if (!downloadByAjax || forceNewWindow || !$window.saveAs) {
-                !$window.saveAs && $window.console.log('Your browser dont support ajax download, downloading by default');
-                return !!$window.open(url, '_blank', '');
-            }
+            var url = apiUrl;
 
             var deferred = $q.defer();
             self.inprocess = true;
             $http.get(url).then(function(response) {
                 var bin = new $window.Blob([response.data]);
                 deferred.resolve(response.data);
-                $window.saveAs(bin, toFilename);
+                let link = document.createElement('a');
+                let url = window.URL.createObjectURL(bin);
+                link.href = url;
+                link.download = toFilename;
+                document.body.append(link);
+                link.click();
+                link.remove();
+                window.URL.revokeObjectURL(url);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_downloading'));
             })['finally'](function() {

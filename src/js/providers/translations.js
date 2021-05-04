@@ -35,6 +35,7 @@
             destination: 'Destination',
             copy_file: 'Copy file',
             sure_to_delete: 'Are you sure to delete',
+            sure_to_download: 'Are you sure to download',
             change_name_move: 'Change name / move',
             enter_new_name_for: 'Enter new name for',
             extract_item: 'Extract item',

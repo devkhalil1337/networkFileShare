@@ -89,22 +89,15 @@
             return this.apiHandler.getUrl(fileManagerConfig.downloadFileUrl, itemPath);
         };
 
-        ApiMiddleware.prototype.download = function(item, forceNewWindow=false) {
+        ApiMiddleware.prototype.download = function(item) {
             //TODO: add spinner to indicate file is downloading
-            var itemPath = this.getFilePath(item);
-            var toFilename = item.model.fileName;
-
-            if (item.isFolder()) {
+            var itemObj = item[0]
+            var apiUrl = `${fileManagerConfig.baseUrl  + fileManagerConfig.downloadUrl + itemObj.tempModel.id}/downloadFile`;
+            var toFilename = itemObj.model.fileName;
+            if (itemObj.isFolder()) {
                 return;
             }
-            
-            return this.apiHandler.download(
-                fileManagerConfig.downloadFileUrl, 
-                itemPath,
-                toFilename,
-                fileManagerConfig.downloadFilesByAjax,
-                forceNewWindow
-            );
+            return this.apiHandler.download(apiUrl,toFilename);
         };
 
         ApiMiddleware.prototype.downloadMultiple = function(files, forceNewWindow) {
