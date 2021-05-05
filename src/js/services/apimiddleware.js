@@ -100,6 +100,13 @@
             return this.apiHandler.download(apiUrl,toFilename);
         };
 
+        ApiMiddleware.prototype.moveFileOrDirectory = function(itemFrom, itemTo) {
+            var _itemToPath = this.getFilePath(itemTo);
+            var itemObj = itemFrom[0];
+            var apiUrl = `${fileManagerConfig.baseUrl  + fileManagerConfig.fileUrl + itemObj.tempModel.id + fileManagerConfig.moveUrl + _itemToPath}`;
+            return this.apiHandler.moveFile(apiUrl);
+        };
+
         ApiMiddleware.prototype.downloadMultiple = function(files, forceNewWindow) {
             var items = this.getFileList(files);
             var timestamp = new Date().getTime().toString().substr(8, 13);

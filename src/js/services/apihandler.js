@@ -98,6 +98,22 @@
             return deferred.promise;
         };
 
+        ApiHandler.prototype.moveFile = function(apiUrl) {
+            var self = this;
+            var deferred = $q.defer();
+            var data = {};
+            self.inprocess = true;
+            self.error = '';
+            $http.put(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_moving'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
+        };
+
         ApiHandler.prototype.remove = function(apiUrl, items) {
             var self = this;
             var deferred = $q.defer();

@@ -53,6 +53,28 @@
             return $scope.temps.indexOf(item) !== -1;
         };
 
+        $scope.moveSelectedFileOrFolder = (item, $event) => {
+            if(!$scope.temps || $scope.temps.length == 0 || item.model.isFile)
+                return;
+                $scope.modal('movefile');
+                $scope.temps.itemTo = item;
+        }
+
+        $scope.moveFile = function(){
+            let item = $scope.temps;
+            if(!item || !item.itemTo || item.itemTo.length == 0){
+                $scope.apiMiddleware.apiHandler.error = $translate.instant('error_cannot_be_file');
+                return;
+            }
+            let itemTo = item.itemTo;
+            $scope.apiMiddleware.moveFileOrDirectory($scope.temps,itemTo).then(function() {
+                $scope.fileNavigator.refresh();
+                $scope.modal('movefile', true);
+            }, function() {
+                $scope.apiMiddleware.apiHandler.asyncSuccess = false;
+            });
+        }
+
         $scope.selectOrUnselect = function(item, $event) {
             var indexInTemp = $scope.temps.indexOf(item);
             var isRightClick = $event && $event.which == 3;
