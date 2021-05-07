@@ -360,6 +360,13 @@
         };
 
         $scope.addForUpload = function($files) {
+            $files = $files.map(function(fileObj){
+                fileObj.description = '';
+                fileObj.fileType = '';
+                fileObj.attachmentNumber = '';
+                fileObj.extension = fileObj.name.split('.').pop();
+                return fileObj;
+            });
             $scope.uploadFileList = $scope.uploadFileList.concat($files);
             $scope.modal('uploadfile');
         };
@@ -368,20 +375,41 @@
             $scope.uploadFileList.splice(index, 1);
         };
 
-        $scope.uploadFiles = function() {
-            $scope.apiMiddleware.upload($scope.uploadFileList, $scope.fileNavigator.currentPath).then(function() {
-                $scope.fileNavigator.refresh();
-                $scope.uploadFileList = [];
-                $scope.modal('uploadfile', true);
-            }, function(data) {
-                var errorMsg = data.result && data.result.error || $translate.instant('error_uploading_files');
-                $scope.apiMiddleware.apiHandler.error = errorMsg;
+        $scope.uploadFiles = async function() {
+            let promises = []
+            $scope.uploadFileList.forEach(function(uploadFileList){
+                promises.push($scope.apiMiddleware.upload(uploadFileList, $scope.fileNavigator.currentPath))
             });
+            let uploadResponse = [];
+            await Promise.allSettled(promises).then(function(response){
+                console.log("response => ",response)
+                uploadResponse = [...response];
+            })
+            let isErrorFound = false;
+            uploadResponse.forEach((res,index,array) => {
+                if(res && res.reason && res.reason.status == 500){
+                    $scope.apiMiddleware.apiHandler.error = res.reason.message;
+                    isErrorFound = true;
+                    $scope.uploadFileList[index].error = true;
+                    $scope.uploadFileList[index].errorMessage = res.reason.message;
+                }else
+                    $scope.uploadFileList[index].error = false;
+                if(array.length - 1 == index){
+                    if(isErrorFound){
+                        $scope.fileNavigator.refresh();
+                    }else{
+                        $scope.modal('uploadfile', true);
+                        $scope.uploadFileList = [];
+                        $scope.fileNavigator.refresh();
+                    }
+                }
+            });
+            $scope.$apply();
         };
 
         $scope.cancelUploadFiles = function() {
-            $scope.apiMiddleware.abortUpload();
-            $scope.uploadFileList = [];
+                $scope.apiMiddleware.abortUpload();
+                $scope.uploadFileList = [];
             // $scope.fileNavigator.refresh();  
         };
 

@@ -137,18 +137,23 @@
             self.inprocess = true;
             self.progress = 0;
             self.error = '';
-
+            
             var data = {
-                description: destination
+                fileType:files.fileType,
+                extension:files.extension,
+                attachmentNumber:files.attachmentNumber,
+                numberOfPages:files.numberOfPages,
+                dateReceived:files.fileReceivedDate,
+                description: files.description
             };
 
-            data['file'] = files[0];
+            data['file'] = files;
 
             // for (var i = 0; i < files.length; i++) {
             //     data['file-' + i] = files[i];
             // }
 
-            if (files && files.length) {
+            if (files) {
                 self.uploadFiles = Upload.upload({
                     url: apiUrl,
                     //headers:{'Content-Type': undefined},//'Content-Type': 'application/json multipart/form-data'},
