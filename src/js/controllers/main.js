@@ -202,9 +202,9 @@
         };
 
         $scope.isInThisPath = function(path) {
-            // var currentPath = $scope.fileNavigator.currentPath.join('/') + '/';
-            // return currentPath.indexOf(path + '/') !== -1;
-            return $scope.fileNavigator.currentPath.indexOf(path + '/') !== -1;
+            var currentPath = typeof $scope.fileNavigator.currentPath == "string" ? $scope.fileNavigator.currentPath + '/': $scope.fileNavigator.currentPath.join('/') + '/';
+            return currentPath.indexOf(path + '/') !== -1;
+            // return $scope.fileNavigator.currentPath.indexOf(path + '/') !== -1;
         };
 
         $scope.edit = function() {
