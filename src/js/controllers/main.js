@@ -360,10 +360,20 @@
         };
 
         $scope.addForUpload = function($files) {
-            $files = $files.map(function(fileObj){
+            let attachmentNumber = $scope.fileNavigator.fileList.filter(item => item.model.isFile && item.model.attachmentNumber).length;
+            if(!attachmentNumber){
+                attachmentNumber = 1;
+            }
+            let uploadFileList = $scope.uploadFileList;
+            if(uploadFileList && uploadFileList.length > 0){
+                let lastAttachmentNumber = uploadFileList[uploadFileList.length - 1 ].attachmentNumber;
+                attachmentNumber = lastAttachmentNumber ? lastAttachmentNumber:1;
+            }
+            $files = $files.map((fileObj,index) =>
+            {
                 fileObj.description = '';
                 fileObj.fileType = '';
-                fileObj.attachmentNumber = '';
+                fileObj.attachmentNumber = attachmentNumber+index;
                 fileObj.extension = fileObj.name.split('.').pop();
                 return fileObj;
             });
