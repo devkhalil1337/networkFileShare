@@ -188,6 +188,22 @@
             $scope.modal('edit');
         };
 
+        $scope.editItem = function() {
+            var item = $scope.singleSelection();
+            $scope.apiMiddleware.editFile(item).then(function(data) {
+                $scope.fileNavigator.refresh();
+                $scope.modal('editFile', true);
+            }, function() {
+                $scope.apiMiddleware.apiHandler.asyncSuccess = false;
+            });
+        };
+
+        $scope.isTrashPath = function(){
+            let currentPath = $scope.fileNavigator.currentPath;
+            if(currentPath && currentPath.length > 0) 
+                return currentPath[currentPath.length-1].toLowerCase() == "trash"
+        }
+
         $scope.modal = function(id, hide, returnElement) {
             var element = angular.element('#' + id);
             element.modal(hide ? 'hide' : 'show');

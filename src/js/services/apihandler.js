@@ -221,6 +221,32 @@
             return deferred.promise;
         };
 
+        ApiHandler.prototype.editFile = function(apiUrl, content) {
+            var self = this;
+            var deferred = $q.defer();
+            var data = {
+                id: content.id,
+                fileName : content.fileName,
+                extension:content.extension,
+                attachmentNumber:content.attachmentNumber,
+                numberOfPages:content.numberOfPages,
+                dateReceived:content.fileReceivedDate,
+                description: content.description
+            }
+
+            self.inprocess = true;
+            self.error = '';
+
+            $http.put(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_modifying'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
+        };
+
         ApiHandler.prototype.rename = function(apiUrl, itemPath, newPath) {
             var self = this;
             var deferred = $q.defer();

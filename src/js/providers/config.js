@@ -15,6 +15,7 @@
             uploadUrl: '/file?destination=',
             createFolderUrl: '/directory?directoryPath=',
             moveUrl: '/moveFile?targetPath=',
+            editFileUrl: '/file',
             downloadUrl: '/file/',
             basePath: '/',
 
@@ -35,6 +36,7 @@
                 downloadMultiple: true,
                 preview: true,
                 remove: true,
+                restore: true,
                 createFolder: true,
                 pickFiles: false,
                 pickFolders: false

@@ -89,6 +89,11 @@
             return this.apiHandler.getUrl(fileManagerConfig.downloadFileUrl, itemPath);
         };
 
+        ApiMiddleware.prototype.editFile = function(item) {
+            let apiUrl =  `${fileManagerConfig.baseUrl + fileManagerConfig.editFileUrl}`;
+            return this.apiHandler.editFile(apiUrl, item.tempModel);
+        };
+
         ApiMiddleware.prototype.download = function(item) {
             //TODO: add spinner to indicate file is downloading
             var itemObj = item[0]

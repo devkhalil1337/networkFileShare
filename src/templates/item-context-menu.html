@@ -36,14 +36,19 @@
                 <i class="glyphicon glyphicon-edit"></i> {{'rename' | translate}}
             </a>
         </li> -->
-        <li ng-show="config.allowedActions.move">
+        <li ng-show="config.allowedActions.download && !isTrashPath()">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('download')">
                 <i class="glyphicon glyphicon-arrow-down"></i> {{'download' | translate}}
             </a>
         </li>
-        <li ng-show="config.allowedActions.move">
+        <li ng-show="config.allowedActions.move && !isTrashPath()">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('move')">
                 <i class="glyphicon glyphicon-arrow-right"></i> {{'move' | translate}}
+            </a>
+        </li>
+        <li ng-show="config.allowedActions.edit && singleSelection().tempModel && singleSelection().tempModel.isFile && !isTrashPath()">
+            <a href="" tabindex="-1" ng-click="modalWithPathSelector('editFile')">
+                <i class="glyphicon glyphicon-edit"></i> {{'edit' | translate}}
             </a>
         </li>
 
@@ -52,6 +57,13 @@
                 <i class="glyphicon glyphicon-log-out"></i> {{'copy' | translate}}
             </a>
         </li> -->
+
+
+        <li ng-show="config.allowedActions.restore && isTrashPath()">
+            <a href="" tabindex="-1" ng-click="">
+                <i class="glyphicon glyphicon-arrow-right"></i> Restore
+            </a>
+        </li>
 
         <li ng-show="config.allowedActions.edit && singleSelection() && singleSelection().isEditable()">
             <a href="" tabindex="-1" ng-click="openEditItem()">
@@ -79,7 +91,7 @@
 
         <li class="divider" ng-show="config.allowedActions.remove"></li>
         
-        <li ng-show="config.allowedActions.remove">
+        <li ng-show="config.allowedActions.remove && !isTrashPath()">
             <a href="" tabindex="-1" ng-click="modal('remove')">
                 <i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}}
             </a>

@@ -415,6 +415,74 @@
   </div>
 </div>
 
+<div class="modal animated fadeIn" id="editFile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form name="userForm" ng-submit="editItem()" novalidate>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">{{"close" | translate}}</span>
+          </button>
+          <h4 class="modal-title">{{"edit_file" | translate}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label for="fileName">fileName:</label>
+                <input type="text" class="form-control" id="fileName" ng-model="singleSelection().tempModel.fileName" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="description">description:</label>
+                <input type="text" class="form-control" id="description" ng-model="singleSelection().tempModel.description">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="extension">Extension:</label>
+                <input type="text" class="form-control" id="extension" value="{{singleSelection().tempModel.fileName.split('.').pop()}}" readonly>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="attachmentNumber">Attachment Number:</label>
+                <input type="text" class="form-control" id="attachmentNumber" ng-model="singleSelection().tempModel.attachmentNumber">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="numberOfPages">Number Of Pages:</label>
+                <input type="text" class="form-control" id="numberOfPages" ng-model="singleSelection().tempModel.numberOfPages">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fileReceivedDate">file Received Date:</label>
+                <input type="date" class="form-control" id="fileReceivedDate" ng-model="singleSelection().tempModel.fileReceivedDate">
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+          <div ng-include data-src="'error-bar'" class="clearfix"></div>
+        </div>
+        <div class="modal-footer">
+          <div>
+            <button type="button" class="btn btn-default" ng-click="cancelUploadFiles()" data-dismiss="modal">{{"cancel" | translate}}</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid || apiMiddleware.apiHandler.inprocess">{{'edit' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="modal animated fadeIn" id="changepermissions">
   <div class="modal-dialog">
     <div class="modal-content">
