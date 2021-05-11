@@ -91,7 +91,7 @@
 
         ApiMiddleware.prototype.editFile = function(item) {
             let apiUrl =  `${fileManagerConfig.baseUrl + fileManagerConfig.editFileUrl}`;
-            return this.apiHandler.editFile(apiUrl, item.tempModel);
+            return this.apiHandler.editFile(apiUrl, item.model);
         };
 
         ApiMiddleware.prototype.download = function(item) {

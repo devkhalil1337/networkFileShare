@@ -115,6 +115,7 @@
                 $scope.isSelected(item) ? $scope.temps.splice(indexInTemp, 1) : $scope.temps.push(item);
                 return;
             }
+            item.model.fileReceivedDate = item.model.fileReceivedDate ? new Date(item.model.fileReceivedDate): item.model.fileUploadDate ? new Date(item.model.fileUploadDate):'';
             $scope.temps = [item];
         };
 
@@ -391,9 +392,10 @@
                 fileObj.fileType = '';
                 fileObj.attachmentNumber = attachmentNumber+index;
                 fileObj.extension = fileObj.name.split('.').pop();
+                fileObj.fileReceivedDate = new Date(); 
                 return fileObj;
             });
-            $scope.uploadFileList = $scope.uploadFileList.concat($files);
+            $scope.uploadFileList = [...$files];
             $scope.modal('uploadfile');
         };
 

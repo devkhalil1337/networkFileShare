@@ -431,13 +431,13 @@
             <div class="col-md-6">
               <div class="form-group ">
                 <label for="fileName">fileName:</label>
-                <input type="text" class="form-control" id="fileName" ng-model="singleSelection().tempModel.fileName" required>
+                <input type="text" class="form-control" id="fileName" ng-model="singleSelection().model.fileName" required>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="description">description:</label>
-                <input type="text" class="form-control" id="description" ng-model="singleSelection().tempModel.description">
+                <input type="text" class="form-control" id="description" ng-model="singleSelection().model.description">
               </div>
             </div>
           </div>
@@ -445,19 +445,19 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="extension">Extension:</label>
-                <input type="text" class="form-control" id="extension" value="{{singleSelection().tempModel.fileName.split('.').pop()}}" readonly>
+                <input type="text" class="form-control" id="extension" value="{{singleSelection().model.fileName.split('.').pop()}}" readonly>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="attachmentNumber">Attachment Number:</label>
-                <input type="text" class="form-control" id="attachmentNumber" ng-model="singleSelection().tempModel.attachmentNumber">
+                <input type="text" class="form-control" id="attachmentNumber" ng-model="singleSelection().model.attachmentNumber">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="numberOfPages">Number Of Pages:</label>
-                <input type="text" class="form-control" id="numberOfPages" ng-model="singleSelection().tempModel.numberOfPages">
+                <input type="text" class="form-control" id="numberOfPages" ng-model="singleSelection().model.numberOfPages">
               </div>
             </div>
           </div>
@@ -465,7 +465,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="fileReceivedDate">file Received Date:</label>
-                <input type="date" class="form-control" id="fileReceivedDate" ng-model="singleSelection().tempModel.fileReceivedDate">
+                <input type="date" class="form-control" id="fileReceivedDate" ng-model="singleSelection().model.fileReceivedDate" placeholder="yyyy-MM-dd">
               </div>
             </div>
             <div class="col-md-6"></div>
@@ -475,7 +475,7 @@
         <div class="modal-footer">
           <div>
             <button type="button" class="btn btn-default" ng-click="cancelUploadFiles()" data-dismiss="modal">{{"cancel" | translate}}</button>
-            <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid || apiMiddleware.apiHandler.inprocess">{{'edit' | translate}}</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid || apiMiddleware.apiHandler.inprocess">{{'save' | translate}}</button>
           </div>
         </div>
       </form>
