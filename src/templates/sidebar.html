@@ -17,6 +17,6 @@
         {{ item.item.model.fileName}}
     </a>
     <ul class="nav nav-sidebar">
-        <li ng-repeat="item in item.nodes" ng-include="'folder-branch-item'" ng-class="{'active': item.filePath == fileNavigator.currentPath.join('/')}"></li>
+        <li ng-repeat="item in item.nodes | orderBy:['item.model.isFile','item.model.attachmentNumber']" ng-include="'folder-branch-item'" ng-class="{'active': item.filePath == fileNavigator.currentPath.join('/')}"></li>
     </ul>
 </script>
