@@ -157,15 +157,18 @@
                 self.uploadFiles = Upload.upload({
                     url: apiUrl,
                     //headers:{'Content-Type': undefined},//'Content-Type': 'application/json multipart/form-data'},
-                    data: data
+                    data: data,                
+                    uploadEventHandlers: {
+                        progress: function(evt) {
+                            self.progress =  parseInt(100.0 * evt.loaded / evt.total);
+                        }
+                    },
                 });
                 
                 self.uploadFiles.then(function (data) {
                     self.deferredHandler(data.data, deferred, data.status);
                 }, function (data) {
                     self.deferredHandler(data.data, deferred, data.status, 'Unknown error uploading files');
-                }, function (evt) {
-                    self.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total)) - 1;
                 })['finally'](function() {
                     self.inprocess = false;
                     self.progress = 0;
