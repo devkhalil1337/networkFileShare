@@ -45,10 +45,7 @@
         };
 
         ApiMiddleware.prototype.remove = function(files) {
-            let url='';
-            //var items = this.getFileList(files);
-            var path = files[0].model.fullPath();
-            url = fileManagerConfig.baseUrl+fileManagerConfig.fileUrl+files[0].model.id+'?targetPath=D:/zrehman/trash'//+path;
+            let url = fileManagerConfig.baseUrl+fileManagerConfig.removeUrl+files[0].model.id;
             return this.apiHandler.remove(url);
         };
 

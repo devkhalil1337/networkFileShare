@@ -16,6 +16,7 @@
             createFolderUrl: '/directory?directoryPath=',
             moveUrl: '/moveFile?targetPath=',
             editFileUrl: '/file',
+            removeUrl: '/file/',
             downloadUrl: '/file/',
             basePath: '/',
 
