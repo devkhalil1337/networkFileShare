@@ -314,7 +314,7 @@
 <div class="modal animated fadeIn" id="uploadfile">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form>
+        <form name="uploadFileForm">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -372,13 +372,16 @@
                         <div class="col-md-4">
                           <div class="form-group">
                             <label for="attachmentNumber">Attachment Number:</label>
-                            <input type="text" class="form-control" id="attachmentNumber" ng-model="uploadFile.attachmentNumber">
+                            <input type="number" ng-style="{border: uploadFileForm.attachmentNumber.$error.max ? '1px solid #ff0b0be6':''}" class="form-control" id="attachmentNumber" name="attachmentNumber{{$index+1}}" ng-max="uploadFile.maxAttachmentNumber" ng-model="uploadFile.attachmentNumber">
+                            <div ng-show="uploadFileForm.$error.max[$index].$error.max"> 
+                              <p>Attachment Number should have at most {{uploadFile.maxAttachmentNumber}} characters.</p>
+                            </div>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label for="numberOfPages">Number Of Pages:</label>
-                            <input type="text" class="form-control" id="numberOfPages" ng-model="uploadFile.numberOfPages">
+                            <input type="number" class="form-control" id="numberOfPages" ng-model="uploadFile.numberOfPages">
                           </div>
                         </div>
                       </div>
@@ -407,7 +410,7 @@
             <div class="modal-footer">
               <div>
                   <button type="button" class="btn btn-default" ng-click="cancelUploadFiles()" data-dismiss="modal">{{"cancel" | translate}}</button>
-                  <button type="submit" class="btn btn-primary" ng-disabled="!$parent.uploadFileList.length || apiMiddleware.apiHandler.inprocess" ng-click="uploadFiles()">{{'upload' | translate}}</button>
+                  <button type="submit" class="btn btn-primary" ng-disabled="uploadFileForm.$invalid || !$parent.uploadFileList.length || apiMiddleware.apiHandler.inprocess" ng-click="uploadFiles()">{{'upload' | translate}}</button>
               </div>
             </div>
         </form>

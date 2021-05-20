@@ -390,6 +390,7 @@
             {
                 fileObj.description = '';
                 fileObj.fileType = '';
+                fileObj.maxAttachmentNumber = attachmentNumber+index;
                 fileObj.attachmentNumber = attachmentNumber+index;
                 fileObj.extension = fileObj.name.split('.').pop();
                 fileObj.fileReceivedDate = new Date(); 
