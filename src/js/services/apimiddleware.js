@@ -109,6 +109,12 @@
             return this.apiHandler.moveFile(apiUrl);
         };
 
+        ApiMiddleware.prototype.recoverFile = function(itemFrom) {
+            var itemObj = itemFrom[0];
+            var apiUrl = `${fileManagerConfig.baseUrl  + fileManagerConfig.fileUrl + itemObj.tempModel.id}/recoverFile`;
+            return this.apiHandler.recoverFile(apiUrl);
+        };
+
         ApiMiddleware.prototype.downloadMultiple = function(files, forceNewWindow) {
             var items = this.getFileList(files);
             var timestamp = new Date().getTime().toString().substr(8, 13);

@@ -54,6 +54,8 @@
         };
 
         $scope.moveSelectedFileOrFolder = (item, $event) => {
+            if($scope.isTrashPath())
+                return;
             if(!$scope.temps || $scope.temps.length == 0 || item.model.isFile)
                 return;
                 $scope.modal('movefile');
@@ -70,6 +72,16 @@
             $scope.apiMiddleware.moveFileOrDirectory($scope.temps,itemTo).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('movefile', true);
+            }, function() {
+                $scope.apiMiddleware.apiHandler.asyncSuccess = false;
+            });
+        }
+
+        $scope.recoverFile = function(){
+            let item = $scope.temps;
+            $scope.apiMiddleware.recoverFile(item).then(function() {
+                $scope.fileNavigator.refresh();
+                $scope.modal('restoreFile', true);
             }, function() {
                 $scope.apiMiddleware.apiHandler.asyncSuccess = false;
             });
@@ -142,7 +154,8 @@
         };
 
         $scope.smartClick = function(item) {
-            console.log('item', item);
+            if($scope.isTrashPath())
+                return;
             var pick = $scope.config.allowedActions.pickFiles;
             // console.log('pick', pick);
             if (item.isFolder()) {
