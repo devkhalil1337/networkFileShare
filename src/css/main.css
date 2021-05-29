@@ -14,6 +14,12 @@ body {
   border: 0;
   border-radius: 0;
   color: #fff;
+  position: unset;
+  background: #204D74 !important;
+}
+
+.modal-backdrop {
+	z-index: 1 !important;
 }
 
 .navbar .navbar-collapse {
