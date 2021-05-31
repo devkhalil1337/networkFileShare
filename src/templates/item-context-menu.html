@@ -11,7 +11,7 @@
                 <i class="glyphicon glyphicon-arrow-down"></i> {{'download' | translate}}
             </a>
         </li>
-        <li ng-show="config.allowedActions.move && !isTrashPath()">
+        <li ng-show="config.allowedActions.move && !isTrashPath() && !fileNavigator.getRootPath()">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('move')">
                 <i class="glyphicon glyphicon-arrow-right"></i> {{'move' | translate}}
             </a>
@@ -33,7 +33,7 @@
         </li>
         <li class="divider" ng-show="config.allowedActions.remove"></li>
         
-        <li ng-show="config.allowedActions.remove && !isTrashPath() && singleSelection().model.fileName != 'Trash'">
+        <li ng-show="config.allowedActions.remove && !isTrashPath() && !fileNavigator.getRootPath()">
             <a href="" tabindex="-1" ng-click="modal('remove')">
                 <i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}} 
             </a>

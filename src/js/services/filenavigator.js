@@ -22,6 +22,15 @@
                 // return path;
             };
 
+            FileNavigator.prototype.getRootPath = function () {
+                let isRootPath = false;
+                if(!this.currentPath || this.currentPath.length == 0)
+                    isRootPath = true;
+                else if(this.currentPath.slice(-1)[0] == "khalil")
+                    isRootPath = true;
+                return isRootPath;
+            };
+
             FileNavigator.prototype.deferredHandler = function (data, deferred, code, defaultMsg) {
                 if (!data || typeof data !== 'object') {
                     this.error = 'Error %s - NFS service is not reachable.'.replace('%s', code);

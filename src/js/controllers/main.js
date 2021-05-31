@@ -409,7 +409,8 @@
                 fileObj.fileReceivedDate = new Date(); 
                 return fileObj;
             });
-            $scope.uploadFileList = [...$files];
+            if($files && $files.length > 0)
+                $scope.uploadFileList = [...$files, ...$scope.uploadFileList]
             $scope.modal('uploadfile');
         };
 
