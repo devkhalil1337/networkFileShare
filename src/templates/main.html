@@ -2,7 +2,7 @@
     <div ng-include="config.tplPath + '/navbar.html'"></div>
 
     <div class="container-fluid">
-        <div class="row" style="margin: 0px;padding: 0px;">
+        <div class="row" style="margin: 0px;padding: 0px;height: 380px;">
 
             <div class="col-sm-4 col-md-3 sidebar file-tree animated slow fadeIn"
                 ng-include="config.tplPath + '/sidebar.html'"
@@ -11,8 +11,7 @@
 
             <div class="main"
                 ng-class="config.sidebar &amp;&amp; fileNavigator.history[0] &amp;&amp; 'col-sm-8 col-md-9'"
-                ngf-model-options="{updateOn: 'drop', allowInvalid: false, debounce: 0}" ngf-drop="addForUpload($files)"
-                ngf-drag-over-class="'upload-dragover'" ngf-multiple="false">
+                ngf-model-options="{updateOn: 'drop', allowInvalid: false, debounce: 0}">
                 <div ng-include="config.tplPath + '/' + viewTemplate" class="main-navigation clearfix"></div>
             </div>
         </div>
