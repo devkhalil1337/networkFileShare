@@ -135,7 +135,7 @@
 
                 function findNode(data, path) {
                     return data.filter(function (n) {
-                        return n.fileName === path;
+                        return n.filePath === path;
                     })[0];
                 }
 
