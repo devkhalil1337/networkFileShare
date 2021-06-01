@@ -3,22 +3,22 @@
 
         <li ng-show="singleSelection() && singleSelection().isFolder() && !isTrashPath()">
             <a href="" tabindex="-1" ng-click="smartClick(singleSelection())">
-                <i class="glyphicon glyphicon-folder-open"></i> {{'open' | translate}}
+                <i class="glyphicon glyphicon-folder-open"></i> Open
             </a>
         </li>
         <li ng-show="config.allowedActions.download && !isTrashPath()">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('download')">
-                <i class="glyphicon glyphicon-arrow-down"></i> {{'download' | translate}}
+                <i class="glyphicon glyphicon-arrow-down"></i> Download
             </a>
         </li>
         <li ng-show="config.allowedActions.move && !isTrashPath() && !fileNavigator.getRootPath()">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('move')">
-                <i class="glyphicon glyphicon-arrow-right"></i> {{'move' | translate}}
+                <i class="glyphicon glyphicon-arrow-right"></i> Move
             </a>
         </li>
         <li ng-show="config.allowedActions.edit && singleSelection().tempModel && singleSelection().tempModel.isFile && !isTrashPath()">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('editFile')">
-                <i class="glyphicon glyphicon-edit"></i> {{'edit' | translate}}
+                <i class="glyphicon glyphicon-edit"></i> Edit
             </a>
         </li>
         <li ng-show="config.allowedActions.restore && isTrashPath()">
@@ -28,27 +28,26 @@
         </li>
         <li ng-show="config.allowedActions.edit && singleSelection() && singleSelection().isEditable()">
             <a href="" tabindex="-1" ng-click="openEditItem()">
-                <i class="glyphicon glyphicon-pencil"></i> {{'edit' | translate}}
+                <i class="glyphicon glyphicon-pencil"></i> Edit
             </a>
         </li>
         <li class="divider" ng-show="config.allowedActions.remove"></li>
         
         <li ng-show="config.allowedActions.remove && !isTrashPath() && !fileNavigator.getRootPath()">
             <a href="" tabindex="-1" ng-click="modal('remove')">
-                <i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}} 
+                <i class="glyphicon glyphicon-trash"></i> Delete
             </a>
         </li>
     </ul>
     <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="!temps.length">
         <li ng-show="config.allowedActions.createFolder">
             <a href="" tabindex="-1" ng-click="modal('newfolder') && prepareNewFolder()">
-                <i class="glyphicon glyphicon-plus"></i> {{'new_folder' | translate}}
+                <i class="glyphicon glyphicon-plus"></i> New folder
             </a>
         </li>
         <li ng-show="config.allowedActions.upload">
             <a href="" tabindex="-1" ng-click="modal('uploadfile')">
-                <i class="glyphicon glyphicon-cloud-upload"></i> {{'upload_files' | translate}}
-            </a>
+                <i class="glyphicon glyphicon-cloud-upload"></i> Upload files
         </li>
     </ul>
 </div>
