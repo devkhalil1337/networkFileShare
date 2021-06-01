@@ -11,7 +11,8 @@
 
             <div class="main"
                 ng-class="config.sidebar &amp;&amp; fileNavigator.history[0] &amp;&amp; 'col-sm-8 col-md-9'"
-                ngf-model-options="{updateOn: 'drop', allowInvalid: false, debounce: 0}">
+                ngf-model-options="{updateOn: 'drop', allowInvalid: false, debounce: 0}" ngf-drop="addForUpload($files)"
+                ngf-drag-over-class="'upload-dragover'" ngf-multiple="false">
                 <div ng-include="config.tplPath + '/' + viewTemplate" class="main-navigation clearfix"></div>
             </div>
         </div>

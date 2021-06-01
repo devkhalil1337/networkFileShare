@@ -390,6 +390,8 @@
         };
 
         $scope.addForUpload = function($files) {
+            if(!$files || $files.length == 0)
+                return;
             let attachmentNumber = $scope.fileNavigator.fileList.filter(item => item.model.isFile && item.model.attachmentNumber).length;
             if(!attachmentNumber){
                 attachmentNumber = 1;
