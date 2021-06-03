@@ -159,7 +159,7 @@
                 extension:files.extension,
                 attachmentNumber:files.attachmentNumber,
                 numberOfPages:files.numberOfPages,
-                dateReceived:files.fileReceivedDate,
+                fileReceivedDate:files.fileReceivedDate,
                 description: files.description
             };
 
