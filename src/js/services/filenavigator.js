@@ -172,7 +172,7 @@
 
             FileNavigator.prototype.upDir = function () {
                 if (this.currentPath) { //this.currentPath[0]
-                    //this.currentPath = this.currentPath.slice(0, -1);
+                    this.currentPath = this.currentPath.slice(0, -1);
                     this.refresh();
                 }
             };

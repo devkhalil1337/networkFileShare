@@ -14,7 +14,7 @@
         };
 
         $scope.select = function(item) {
-            $rootScope.selectedModalPath = item.model.fullPath($scope.fileNavigator.currentPath).split('/').filter(Boolean);
+            $rootScope.selectedModalPath =  [...$scope.fileNavigator.currentPath,item.model.fileName] //item.model.fullPath($scope.fileNavigator.currentPath).split('/').filter(Boolean);
             $scope.modal('selector', true);
         };
 

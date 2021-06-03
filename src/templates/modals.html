@@ -574,7 +574,7 @@
 <div class="modal animated fadeIn" id="selector" ng-controller="ModalFileManagerCtrl">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form ng-submit="selectCurrent()">
+      <form>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">
               <span aria-hidden="true">&times;</span>
@@ -587,7 +587,7 @@
               <div ng-include="config.tplPath + '/current-folder-breadcrumb.html'"></div>
               <div ng-include="config.tplPath + '/main-table-modal.html'"></div>
               <hr />
-              <button class="btn btn-sm btn-default">
+              <button class="btn btn-sm btn-default" ng-click="selectCurrent()">
                   <i class="glyphicon"></i> Select this
               </button>
           </div>
