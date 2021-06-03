@@ -195,15 +195,17 @@
         };
 
         $scope.openEditItem = function() {
-            var item = $scope.singleSelection();
-            $scope.apiMiddleware.getContent(item).then(function(data) {
-                item.tempModel.content = item.model.content = data.result;
-            });
-            $scope.modal('edit');
+            $scope.selectedItem = angular.copy($scope.singleSelection());
+            let attachmentNumber = $scope.fileNavigator.fileList.filter(item => item.model.isFile && item.model.attachmentNumber).length;
+            if(!attachmentNumber){
+                attachmentNumber = 1;
+            }
+            $scope.selectedItem.maxAttachmentNumber = attachmentNumber
+            $scope.modal('editFile');
         };
 
         $scope.editItem = function() {
-            var item = $scope.singleSelection();
+            var item = $scope.selectedItem;
             $scope.apiMiddleware.editFile(item).then(function(data) {
                 $scope.fileNavigator.refresh();
                 $scope.modal('editFile', true);

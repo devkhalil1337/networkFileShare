@@ -447,13 +447,13 @@
             <div class="col-md-6">
               <div class="form-group ">
                 <label for="fileName">Name:</label>
-                <input type="text" class="form-control" id="fileName" ng-model="singleSelection().model.fileName" required>
+                <input type="text" class="form-control" id="fileName" ng-model="selectedItem.model.fileName" required>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="description">Description:</label>
-                <input type="text" class="form-control" id="description" ng-model="singleSelection().model.description">
+                <input type="text" class="form-control" id="description" ng-model="selectedItem.model.description">
               </div>
             </div>
           </div>
@@ -461,19 +461,25 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="extension">Extension:</label>
-                <input type="text" class="form-control" id="extension" value="{{singleSelection().model.fileName.split('.').pop()}}" readonly>
+                <input type="text" class="form-control" id="extension" value="{{selectedItem.model.fileName.split('.').pop()}}" readonly>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="attachmentNumber">Attachment Number:</label>
-                <input type="text" class="form-control" id="attachmentNumber" ng-model="singleSelection().model.attachmentNumber">
+                <input type="number"  class="form-control" id="attachmentNumber" name="attachmentNumber"  min="1" max="{{selectedItem.maxAttachmentNumber}}" ng-model="selectedItem.model.attachmentNumber" ng-style="{border: userForm.$error.max || userForm.$error.min ? '1px solid #ff0b0be6':''}">
+                <div ng-show="userForm.$error.min"> 
+                  <p>Attachment Number should ≥ 1.</p>
+                </div>
+                <div ng-show="userForm.$error.max"> 
+                  <p>Attachment can be max {{selectedItem.maxAttachmentNumber}}.</p>
+                </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="numberOfPages">Number Of Pages:</label>
-                <input type="text" class="form-control" id="numberOfPages" ng-model="singleSelection().model.numberOfPages">
+                <input type="text" class="form-control" id="numberOfPages" ng-model="selectedItem.model.numberOfPages">
               </div>
             </div>
           </div>
@@ -481,7 +487,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="fileReceivedDate">Date:</label>
-                <input type="date" class="form-control" id="fileReceivedDate" ng-model="singleSelection().model.fileReceivedDate" placeholder="yyyy-MM-dd">
+                <input type="date" class="form-control" id="fileReceivedDate" ng-model="selectedItem.model.fileReceivedDate" placeholder="yyyy-MM-dd">
               </div>
             </div>
             <div class="col-md-6"></div>
