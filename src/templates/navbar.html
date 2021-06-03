@@ -60,11 +60,11 @@
                         </div> -->
 
                         <div class="btn-group">
-                            <button class="btn btn-flat btn-sm dropdown-toggle" type="button" id="more" data-toggle="dropdown" aria-expanded="true">
+                            <button class="btn btn-flat btn-sm dropdown-toggle" type="button" id="more" data-toggle="dropdown" aria-expanded="true" ng-disabled="isTrashPath()">
                                 <i class="glyphicon glyphicon-option-vertical"></i>
                             </button>
 
-                            <ul class="dropdown-menu scrollable-menu animated fast fadeIn pull-right" role="menu" aria-labelledby="more">
+                            <ul class="dropdown-menu scrollable-menu animated fast fadeIn pull-right" role="menu" aria-labelledby="more" ng-show="!isTrashPath()">
                                 <li role="presentation" ng-show="config.allowedActions.createFolder" ng-click="modal('newfolder') && prepareNewFolder()">
                                     <a href="" role="menuitem" tabindex="-1">
                                         <i class="glyphicon glyphicon-plus"></i> New Folder

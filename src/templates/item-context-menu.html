@@ -39,7 +39,7 @@
             </a>
         </li>
     </ul>
-    <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="!temps.length">
+    <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="!temps.length && !isTrashPath() ">
         <li ng-show="config.allowedActions.createFolder">
             <a href="" tabindex="-1" ng-click="modal('newfolder') && prepareNewFolder()">
                 <i class="glyphicon glyphicon-plus"></i> New folder
