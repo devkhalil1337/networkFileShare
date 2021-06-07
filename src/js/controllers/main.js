@@ -7,6 +7,7 @@
         var $storage = $window.localStorage;
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
+        $scope.filesSortBy = 'model.attachmentNumber';
         $scope.predicate = ['model.fileType', 'model.fileName'];
         $scope.order = function(predicate) {
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;

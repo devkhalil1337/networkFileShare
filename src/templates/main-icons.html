@@ -1,6 +1,35 @@
-<div class="iconset noselect">
+<div class="iconset noselect" style="padding:0px;">
+    <nav class="navbar" style="background: #C8C8C8 !important;">
+        <div class="container-fluid">
+            <div class="row" style="margin: 0px;pad: 0px;">
+                <div class="col-sm-9 col-md-8 hidden-xs">
+                    Number of Files {{fileNavigator.fileList.length}}
+                </div>
+                <div class="col-sm-3 col-md-4" >
+                    <form >
+                        <div class="form-check form-check-inline" style="text-align: right;">
+                            <div class="form-group">
+                                <div class="col-xs-offset-1 col-xs-12" style="margin-top: 10px;margin-left: 10px;">
+                                  <label class="checkbox-inline">
+                                     <input type="radio" style="left:10px;opacity: 1;top: -3px;" name="sorting" value="model.attachmentNumber" ng-model="filesSortBy">  # Attachment
+                                  </label>
+                                  <label class="checkbox-inline">
+                                    /
+                                 </label>
+                                  <label class="checkbox-inline">
+                                     <input type="radio" style="left:10px;opacity: 1;top: -3px;" name="sorting" value="model.fileName" ng-model="filesSortBy">  # Name 
+                                  </label>
+                                </div>
+                              </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
     <div class="item-list clearfix" ng-click="selectOrUnselect(null, $event)" ng-right-click="selectOrUnselect(null, $event)" prevent="true">
-        <div class="col-120" ng-repeat="item in fileNavigator.fileList | orderBy:['model.isFile','model.attachmentNumber']" ng-show="!fileNavigator.requesting && !fileNavigator.error">
+        <div class="col-120" ng-repeat="item in fileNavigator.fileList | orderBy:filesSortBy" ng-show="!fileNavigator.requesting && !fileNavigator.error">
             <a href="" class="thumbnail text-center"  id="{{item.model.id}}" ngf-drop="moveSelectedFileOrFolder(item, $event);" ng-click="selectOrUnselect(item, $event)" ng-dblclick="smartClick(item)" ng-right-click="selectOrUnselect(item, $event)" title="{{item.model.fileName}} ({{item.model.fileSize | humanReadableFileSize}})" ng-class="{selected: isSelected(item)}">
                 <div class="item-icon">
                     <i class="glyphicon glyphicon-folder-open" ng-show="!item.model.isFile"></i>
