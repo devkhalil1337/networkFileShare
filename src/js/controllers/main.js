@@ -346,10 +346,13 @@
                 $scope.apiMiddleware.apiHandler.error = $translate.instant('error_cannot_be_file');
                 return false;
             }
+            $scope.fileNavigator.requesting = true;
             $scope.apiMiddleware.download($scope.temps,$scope.fileNavigator).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('download', true);
+                $scope.fileNavigator.requesting = false;
             }, function() {
+                $scope.fileNavigator.requesting = false;
                 $scope.apiMiddleware.apiHandler.asyncSuccess = false;
             });
         };
