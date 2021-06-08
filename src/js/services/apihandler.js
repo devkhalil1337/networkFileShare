@@ -249,7 +249,7 @@
                 extension:content.extension,
                 attachmentNumber:content.attachmentNumber,
                 numberOfPages:content.numberOfPages,
-                dateReceived:content.fileReceivedDate,
+                fileReceivedDate:content.fileReceivedDate,
                 description: content.description
             }
 
