@@ -297,10 +297,19 @@
         ApiHandler.prototype.download = function(apiUrl, toFilename) {
             var self = this;
             var url = apiUrl;
-
             var deferred = $q.defer();
+            self.progress = 0;
             self.inprocess = true;
-            $http.get(url).then(function(response) {
+            $http.get(url,
+                { 
+                    responseType: 'blob',
+                    eventHandlers: {
+                        progress: function(event) {
+                          console.log("progress");
+                          self.progress = parseInt(100.0 * event.loaded / event.total)
+                        }
+                      },
+        }).then(function(response) {
                 var bin = new $window.Blob([response.data]);
                 deferred.resolve(response.data);
                 let link = document.createElement('a');
@@ -315,6 +324,7 @@
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_downloading'));
             })['finally'](function() {
                 self.inprocess = false;
+                self.progress = 0;
             });
             return deferred.promise;
         };
