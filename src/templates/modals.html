@@ -62,7 +62,8 @@
         Are you sure to download <span ng-include data-src="'selected-files-msg'"></span>
 
         <div ng-show="apiMiddleware.apiHandler.inprocess">
-          <em>Uploading... {{apiMiddleware.apiHandler.progress}}%</em>
+          <em ng-if="apiMiddleware.apiHandler.progress == '0'">Compressing... </em>
+          <em ng-if="apiMiddleware.apiHandler.progress > 0">Downloading... {{apiMiddleware.apiHandler.progress}}%</em>
           <div class="progress mb0">
             <div class="progress-bar active" role="progressbar" aria-valuenow="{{apiMiddleware.apiHandler.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{apiMiddleware.apiHandler.progress}}%"></div>
           </div>
