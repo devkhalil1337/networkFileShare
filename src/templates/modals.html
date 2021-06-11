@@ -372,6 +372,13 @@
                     <div class="container" data-toggle="collapse" data-target="#demo-{{$index+1}}">
                       <h5 class="list-group-item-heading">{{uploadFile.name}}</h5>
                       <p class="list-group-item-text">{{uploadFile.size | humanReadableFileSize}}</p>
+                      <p class="list-group-item-text" ng-if="uploadFile.errorMessage">{{uploadFile.errorMessage}}</p>
+                      <div ng-show="uploadFile.progress > 0">
+                        <em>Uploading... {{uploadFile.progress}}%</em>
+                        <div class="progress mb0">
+                          <div class="progress-bar active" role="progressbar" aria-valuenow="{{uploadFile.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadFile.progress}}%"></div>
+                        </div>
+                      </div>
                     </div>
                     <div id="demo-{{$index+1}}" class="collapse">
                     <div class="row">
@@ -418,14 +425,14 @@
                   
                   </li>
                 </ul>
-                <div ng-show="apiMiddleware.apiHandler.inprocess">
+                <!-- <div ng-show="apiMiddleware.apiHandler.inprocess">
                   <em>Uploading... {{apiMiddleware.apiHandler.progress}}%</em>
                   <div class="progress mb0">
                     <div class="progress-bar active" role="progressbar" aria-valuenow="{{apiMiddleware.apiHandler.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{apiMiddleware.apiHandler.progress}}%"></div>
                   </div>
-                </div>
+                </div> -->
               </div>
-              <div ng-include data-src="'error-bar'" class="clearfix"></div>
+              <!-- <div ng-include data-src="'error-bar'" class="clearfix"></div> -->
             </div>
             <div class="modal-footer">
               <div>

@@ -147,50 +147,39 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.upload = function(apiUrl, destination, files) {
+        ApiHandler.prototype.upload = async function(apiUrl, destination, files) {
             var self = this;
             var deferred = $q.defer();
             self.inprocess = true;
             self.progress = 0;
             self.error = '';
-            
             var data = {
-                fileType:files.fileType,
-                extension:files.extension,
-                attachmentNumber:files.attachmentNumber,
-                numberOfPages:files.numberOfPages,
-                fileReceivedDate:files.fileReceivedDate,
+                fileType: files.fileType,
+                extension: files.extension,
+                attachmentNumber: files.attachmentNumber,
+                numberOfPages: files.numberOfPages,
+                fileReceivedDate: files.fileReceivedDate,
                 description: files.description
             };
-
             data['file'] = files;
-
-            // for (var i = 0; i < files.length; i++) {
-            //     data['file-' + i] = files[i];
-            // }
-
-            if (files) {
-                self.uploadFiles = Upload.upload({
+            if(files) {
+                self.uploadFiles = await Upload.upload({
                     url: apiUrl,
-                    //headers:{'Content-Type': undefined},//'Content-Type': 'application/json multipart/form-data'},
-                    data: data,                
+                    data: data,
                     uploadEventHandlers: {
                         progress: function(evt) {
-                            self.progress =  parseInt(100.0 * evt.loaded / evt.total);
+                            self.progress = parseInt(100.0 * evt.loaded / evt.total);
+                            files.progress = parseInt(100.0 * evt.loaded / evt.total);
                         }
                     },
                 });
-                
-                self.uploadFiles.then(function (data) {
+                try {
+                    let data = await self.uploadFiles;
                     self.deferredHandler(data.data, deferred, data.status);
-                }, function (data) {
+                } catch(data) {
                     self.deferredHandler(data.data, deferred, data.status, 'Unknown error uploading files');
-                })['finally'](function() {
-                    self.inprocess = false;
-                    self.progress = 0;
-                });
+                }
             }
-
             return deferred.promise;
         };
 

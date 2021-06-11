@@ -428,34 +428,33 @@
 
         $scope.uploadFiles = async function() {
             let promises = []
-            $scope.uploadFileList.forEach(function(uploadFileList){
-                promises.push($scope.apiMiddleware.upload(uploadFileList, $scope.fileNavigator.currentPath))
-            });
-            let uploadResponse = [];
-            await Promise.allSettled(promises).then(function(response){
-                console.log("response => ",response)
-                uploadResponse = [...response];
-            })
             let isErrorFound = false;
-            uploadResponse.forEach((res,index,array) => {
-                if(res && res.reason && res.reason.status == 500){
-                    $scope.apiMiddleware.apiHandler.error = res.reason.message;
-                    isErrorFound = true;
-                    $scope.uploadFileList[index].error = true;
-                    $scope.uploadFileList[index].errorMessage = res.reason.message;
-                }else
+            $scope.uploadFileList.forEach(function(uploadFileList, index, array) {
+                promises.push($scope.apiMiddleware.upload(uploadFileList, $scope.fileNavigator.currentPath).then(function(response) {
+                    console.log("Success", response);
                     $scope.uploadFileList[index].error = false;
-                if(array.length - 1 == index){
-                    if(isErrorFound){
-                        $scope.fileNavigator.refresh();
+                }, function(response) {
+                    console.log(response);
+                    if(response && response.data && response.data.description){
+                        isErrorFound = true;
+                        $scope.uploadFileList[index].error = true;
+                        $scope.apiMiddleware.apiHandler.error = response.data.description;
+                        $scope.uploadFileList[index].errorMessage = response.data.description;
                     }else{
-                        $scope.modal('uploadfile', true);
-                        $scope.uploadFileList = [];
-                        $scope.fileNavigator.refresh();
+                        $scope.uploadFileList[index].error = false;
                     }
-                }
+                }));
             });
-            $scope.$apply();
+            await Promise.allSettled(promises);
+            if(isErrorFound) {
+                $scope.fileNavigator.refresh();
+            } else {
+                $scope.apiMiddleware.apiHandler.inprocess = false;
+                $scope.apiMiddleware.apiHandler.progress = 0;
+                $scope.modal('uploadfile', true);
+                $scope.uploadFileList = [];
+                $scope.fileNavigator.refresh();
+            }
         };
 
         $scope.cancelUploadFiles = function() {
