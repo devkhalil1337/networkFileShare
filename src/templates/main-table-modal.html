@@ -31,7 +31,7 @@
         </tr>
         <tr ng-repeat="item in fileNavigator.fileList | orderBy:predicate:reverse" ng-show="!fileNavigator.requesting && !item.model.isFile  && item.model.fileName != 'Trash'" ng-if="!selectedFilesAreChildOfPath(item)">
             <td>
-                <a href="" ng-click="fileNavigator.folderClick(item)" title="{{item.model.fileName}} ({{item.model.fileSize | humanReadableFileSize}})">
+                <a href="" ng-click="fileNavigator.folderClick(item)" title="{{item.model.fileName}} {{item.model.isFile ? '('+(item.model.fileSize | humanReadableFileSize)+')':''}}">
                     <i class="glyphicon glyphicon-folder-close"></i>
                     {{item.model.fileName | strLimit : 32}}
                 </a>
