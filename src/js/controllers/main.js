@@ -221,6 +221,10 @@
                 return currentPath[currentPath.length-1].toLowerCase() == "trash"
         }
 
+        $scope.isTrashFolder = function(){
+            return ($scope.singleSelection() && ($scope.singleSelection().tempModel.fileName == 'Trash' || $scope.singleSelection().tempModel.fileName == 'trash'))
+        }
+
         $scope.modal = function(id, hide, returnElement) {
             var element = angular.element('#' + id);
             element.modal(hide ? 'hide' : 'show');

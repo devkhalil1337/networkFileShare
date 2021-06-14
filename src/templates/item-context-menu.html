@@ -6,17 +6,17 @@
                 <i class="glyphicon glyphicon-folder-open"></i> Open
             </a>
         </li>
-        <li ng-show="config.allowedActions.download  && !isTrashPath()">
+        <li ng-show="config.allowedActions.download && !isTrashPath() && !isTrashFolder()">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('download')">
-                <i class="glyphicon glyphicon-arrow-down"></i> Download
+                <i class="glyphicon glyphicon-arrow-down"></i> Download 
             </a>
         </li>
-        <li ng-show="config.allowedActions.move && (fileNavigator.getRootPath() && singleSelection().tempModel.isFile) || (!fileNavigator.getRootPath()) && !isTrashPath()">
+        <li ng-show="config.allowedActions.move && !isTrashPath() && !isTrashFolder()">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('move')">
                 <i class="glyphicon glyphicon-arrow-right"></i> Move
             </a>
         </li>
-        <li ng-show="config.allowedActions.edit && (fileNavigator.getRootPath() && singleSelection().tempModel.isFile) || (!fileNavigator.getRootPath()) && !isTrashPath()">
+        <li ng-show="config.allowedActions.edit && !isTrashPath() && !isTrashFolder()">
             <a href="" tabindex="-1" ng-click="openEditItem()">
                 <i class="glyphicon glyphicon-edit"></i> Edit
             </a>
@@ -28,7 +28,7 @@
         </li>
         <li class="divider" ng-show="config.allowedActions.remove"></li>
         
-        <li ng-show="config.allowedActions.remove && (fileNavigator.getRootPath() && singleSelection().tempModel.isFile) || (!fileNavigator.getRootPath())">
+        <li ng-show="config.allowedActions.remove && !isTrashFolder()">
             <a href="" tabindex="-1" ng-click="modal('remove')">
                 <i class="glyphicon glyphicon-trash"></i> Delete
             </a>
