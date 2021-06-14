@@ -648,7 +648,7 @@
   <div ng-show="temps.length > 1 &amp;&amp; showDetails">
     <ul class="selected-file-details">
       <li ng-repeat="tempItem in temps">
-        <b>{{tempitem.model.fileName}}</b>
+        <b>{{temps[$index].model.fileName}}</b>
       </li>
     </ul>
   </div>
