@@ -46,7 +46,10 @@
         };
 
         $rootScope.getSelectedPath = function() {
+            let rootPath = "khalil";
             var path = $rootScope.selectedModalPath.filter(Boolean);
+            let findRootPathIndex = path.findIndex(p => rootPath == p);
+            path = path.slice(findRootPathIndex);
             var result = '/' + path.join('/');
             if ($scope.singleSelection() && !$scope.singleSelection().isFolder()) {
                 result += '/' + $scope.singleSelection().tempModel.fileName;

@@ -65,12 +65,12 @@
                             </button>
 
                             <ul class="dropdown-menu scrollable-menu animated fast fadeIn pull-right" role="menu" aria-labelledby="more" ng-show="!isTrashPath()">
-                                <li role="presentation" ng-show="config.allowedActions.createFolder" ng-click="modal('newfolder') && prepareNewFolder()">
+                                <li role="presentation" ng-show="config.allowedActions.createFolder" ng-click="modalWithPathSelector('newfolder') && prepareNewFolder()">
                                     <a href="" role="menuitem" tabindex="-1">
                                         <i class="glyphicon glyphicon-plus"></i> New Folder
                                     </a>
                                 </li>
-                                <li role="presentation" ng-show="config.allowedActions.upload" ng-click="modal('uploadfile')">
+                                <li role="presentation" ng-show="config.allowedActions.upload" ng-click="modalWithPathSelector('uploadfile')">
                                     <a href="" role="menuitem" tabindex="-1">
                                         <i class="glyphicon glyphicon-cloud-upload"></i> Upload files
                                     </a>

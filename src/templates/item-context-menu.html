@@ -36,12 +36,12 @@
     </ul>
     <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="!temps.length && !isTrashPath() ">
         <li ng-show="config.allowedActions.createFolder">
-            <a href="" tabindex="-1" ng-click="modal('newfolder') && prepareNewFolder()">
+            <a href="" tabindex="-1" ng-click="modalWithPathSelector('newfolder') && prepareNewFolder()">
                 <i class="glyphicon glyphicon-plus"></i> New folder
             </a>
         </li>
         <li ng-show="config.allowedActions.upload">
-            <a href="" tabindex="-1" ng-click="modal('uploadfile')">
+            <a href="" tabindex="-1" ng-click="modalWithPathSelector('uploadfile')">
                 <i class="glyphicon glyphicon-cloud-upload"></i> Upload files
         </li>
     </ul>

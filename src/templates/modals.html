@@ -357,7 +357,7 @@
             <div class="modal-body">
               <label class="radio">
                 Files will be uploaded to
-                <b>/{{fileNavigator.currentPath.join('/')}}</b>
+                <b>{{getSelectedPath()}}</b>
               </label>
               <button class="btn btn-default btn-block" ngf-select="$parent.addForUpload($files)" ngf-multiple="true">
                 Select file
