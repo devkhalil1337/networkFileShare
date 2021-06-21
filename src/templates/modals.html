@@ -6,11 +6,27 @@
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
         </button>
-        <h4 class="modal-title">{{"preview" | translate}}</h4>
+        <h4 class="modal-title">Gallery</h4>
       </div>
       <div class="modal-body">
+        <div class="row" style="margin: 10px;">
+          <div class="col-md-2">
+            <button class="btn btn-primary" ng-click="prevFile();" ng-disabled="apiMiddleware.apiHandler.inprocess || count <= 0"> <<< </button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary" ng-click="nextFile();" ng-disabled="apiMiddleware.apiHandler.inprocess || (count == fileslist.length-1)"> >>></button>
+          </div>
+          <div class="col-md-2">
+            <span>{{count+1}} of {{fileslist.length }}</span>
+          </div>
+          <div class="col-md-5">
+            <span>{{fileslist[count].model.fileName | limitTo : 32}}</span>
+          </div>
+        </div>
         <div class="text-center">
-          <img id="imagepreview-target" class="preview" alt="{{singleSelection().model.name}}" ng-class="{'loading': apiMiddleware.apiHandler.inprocess}">
+          <img id="imagepreview-target" class="preview" alt="{{singleSelection().model.name}}" ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" ng-if="fileslist[count].model.fileType.indexOf('image') > -1">
+          <iframe  id="pdfpreview-target" class="preview" alt="{{singleSelection().model.name}}"  ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" style="width: 100%;height: calc(80vh - 180px);border: none;"  ng-if="fileslist[count].model.fileType.indexOf('pdf') > -1">
+          </iframe>
           <span class="label label-warning" ng-show="apiMiddleware.apiHandler.inprocess">Loading ...</span>
         </div>
         <div ng-include data-src="'error-bar'" class="clearfix"></div>

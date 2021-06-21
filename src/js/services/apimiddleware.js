@@ -65,8 +65,13 @@
         };
 
         ApiMiddleware.prototype.getContent = function(item) {
-            var itemPath = this.getFilePath(item);
-            return this.apiHandler.getContent(fileManagerConfig.getContentUrl, itemPath);
+            var itemObj = item;
+            var apiUrl = `${fileManagerConfig.baseUrl  + fileManagerConfig.downloadUrl + itemObj.tempModel.id}/downloadFile`;
+            var itemId = itemObj.tempModel.id;
+            if (itemObj.isFolder()) {
+                return;
+            }
+            return this.apiHandler.getContent(apiUrl,itemId);
         };
 
         ApiMiddleware.prototype.edit = function(item) {

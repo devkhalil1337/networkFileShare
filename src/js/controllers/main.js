@@ -183,16 +183,40 @@
         };
 
         $scope.openImagePreview = function() {
-            var item = $scope.singleSelection();
-            $scope.apiMiddleware.apiHandler.inprocess = true;
+            $scope.count = 0;
+            let filesToDisplay = $scope.fileNavigator.fileList.filter(item => item.model.isFile && (item.model.extension == "jpg" || item.model.extension == "pdf" ));
+            if(!filesToDisplay || filesToDisplay.length == 0)
+                return;
+            let _item = filesToDisplay[0];
+            $scope.fileslist = filesToDisplay;
+            $scope.getContent(_item);
+        };
+        $scope.nextFile = function(){
+            $scope.count++;
+            $scope.getContent();
+        }
+        $scope.prevFile = function(){
+            $scope.count--;
+            $scope.getContent();
+        }
+        $scope.getContent = function() {
+            
+            let _item = $scope.fileslist[$scope.count];
+            return $scope.apiMiddleware.getContent(_item).then(response => {
+                var blob = new Blob([response], {type: 'application/pdf'});
+                var url = URL.createObjectURL(blob);
+
+                $scope.apiMiddleware.apiHandler.inprocess = true;
             $scope.modal('imagepreview', null, true)
-                .find('#imagepreview-target')
-                .attr('src', $scope.getUrl(item))
+                .find('#pdfpreview-target')
+                .attr('src', url)
                 .unbind('load error')
                 .on('load error', function() {
                     $scope.apiMiddleware.apiHandler.inprocess = false;
                     $scope.$apply();
                 });
+            });
+            
         };
 
         $scope.openEditItem = function() {
@@ -467,9 +491,7 @@
             // $scope.fileNavigator.refresh();  
         };
 
-        $scope.getUrl = function(_item) {
-            return $scope.apiMiddleware.getUrl(_item);
-        };
+      
 
         var validateSamePath = function(item) {
             var selectedPath = $rootScope.selectedModalPath.join('');

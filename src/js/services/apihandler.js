@@ -158,7 +158,7 @@
                 extension: files.extension,
                 attachmentNumber: files.attachmentNumber,
                 numberOfPages: files.numberOfPages,
-                fileReceivedDate: files.fileReceivedDate,
+                dateReceived: files.fileReceivedDate,
                 description: files.description
             };
             data['file'] = files;
@@ -197,8 +197,8 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).then(function(response) {
-                self.deferredHandler(response.data, deferred, response.status);
+            $http.get(apiUrl,{responseType: 'blob'}).then(function(response) {
+                deferred.resolve(response.data);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_getting_content'));
             })['finally'](function() {
