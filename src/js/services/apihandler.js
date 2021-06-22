@@ -1,10 +1,10 @@
 (function(angular) {
     'use strict';
-    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', '$httpParamSerializer', 'Upload',
-        function ($http, $q, $window, $translate, $httpParamSerializer, Upload) {
-
+    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', '$httpParamSerializer', 'Upload','$cacheFactory',
+    function ($http, $q, $window, $translate, $httpParamSerializer, Upload,$cacheFactory) {
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
+        $cacheFactory('galleryFiles');
+        
         var ApiHandler = function() {
             this.inprocess = false;
             this.asyncSuccess = false;
@@ -187,24 +187,44 @@
             this.uploadFiles.abort();
         }
 
-        ApiHandler.prototype.getContent = function(apiUrl, itemPath) {
+        ApiHandler.prototype.getContent = function(apiUrl, itemId) {
             var self = this;
             var deferred = $q.defer();
-            var data = {
-                action: 'getContent',
-                item: itemPath
-            };
-
             self.inprocess = true;
             self.error = '';
-            $http.get(apiUrl,{responseType: 'blob'}).then(function(response) {
-                deferred.resolve(response.data);
-            }, function(response) {
-                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_getting_content'));
-            })['finally'](function() {
+            let todosCache = $cacheFactory.get('galleryFiles');
+            if(todosCache.get(itemId)){
+                let itemCache = todosCache.get(itemId)
                 self.inprocess = false;
-            });
-            return deferred.promise;
+                   deferred.resolve(itemCache.data);
+                   return deferred.promise;
+                   //                   return;
+            }else{
+                $http({
+                    url: apiUrl,
+                    method:"GET",
+                    cache: true,
+                    responseType: "blob",
+                }).then(function(response) {
+                    todosCache.put(itemId,response)
+                    deferred.resolve(response.data);
+                }, function(response) {
+                    self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_getting_content'));
+                })['finally'](function() {
+                    self.inprocess = false;
+                });
+                return deferred.promise;
+            }
+        };
+
+        ApiHandler.prototype.downloadSingleFile = function(itemId,toFilename) {
+            var self = this;
+            self.error = '';
+            let cacheGalleryFiles =  $cacheFactory.get('galleryFiles') 
+            if(cacheGalleryFiles.get(itemId)){
+                let itemCache = cacheGalleryFiles.get(itemId)
+                saveAs(itemCache.data, toFilename);
+            }
         };
 
         ApiHandler.prototype.edit = function(apiUrl, itemPath, content) {

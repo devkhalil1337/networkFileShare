@@ -192,29 +192,47 @@
             $scope.getContent(_item);
         };
         $scope.nextFile = function(){
+            if($scope.count == $scope.fileslist.length-1)
+                return;
             $scope.count++;
             $scope.getContent();
         }
         $scope.prevFile = function(){
+            if($scope.count == 0)
+                return;
             $scope.count--;
             $scope.getContent();
         }
+
+        $scope.downloadSingleFile = function(){
+            return $scope.apiMiddleware.downloadSingleFile($scope.fileslist[$scope.count])
+        }
+
         $scope.getContent = function() {
             
             let _item = $scope.fileslist[$scope.count];
             return $scope.apiMiddleware.getContent(_item).then(response => {
-                var blob = new Blob([response], {type: 'application/pdf'});
+                let type = 'image/jpg';
+                if(_item.model.fileName.indexOf("pdf") > 0)
+                    type = 'application/pdf';
+                var blob = new Blob([response], {type: type});
                 var url = URL.createObjectURL(blob);
 
-                $scope.apiMiddleware.apiHandler.inprocess = true;
+                let fileType = "pdfpreview-target";
+                if((type).indexOf("image") > -1){
+                    fileType = "imagepreview-target";
+                }
+
+                $scope.fileSrc = url;
+            //    $scope.apiMiddleware.apiHandler.inprocess = true;
             $scope.modal('imagepreview', null, true)
-                .find('#pdfpreview-target')
-                .attr('src', url)
-                .unbind('load error')
-                .on('load error', function() {
-                    $scope.apiMiddleware.apiHandler.inprocess = false;
-                    $scope.$apply();
-                });
+                // .find('#'+fileType)
+                // .attr('src', url)
+                // .unbind('load error')
+                // .on('load error', function() {
+                //     $scope.apiMiddleware.apiHandler.inprocess = false;
+                //     $scope.$apply();
+                // });
             });
             
         };

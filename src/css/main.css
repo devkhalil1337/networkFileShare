@@ -263,6 +263,11 @@ textarea.code {
   margin-top: 8%;
 }
 
+#imagepreview .btn-group{
+  text-align: center;
+  padding: 0px 5px;
+}
+
 a:hover,
 a:active,
 a:focus,

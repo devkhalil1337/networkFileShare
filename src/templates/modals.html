@@ -9,23 +9,43 @@
         <h4 class="modal-title">Gallery</h4>
       </div>
       <div class="modal-body">
-        <div class="row" style="margin: 10px;">
+        <div class="btn-group btn-group-justified">
+          <div class="btn-group">
+            <a type="button" class="btn btn-primary" ng-click="downloadSingleFile();">Download</a>
+          </div>
+          <div class="btn-group">
+            <a type="button" class="btn btn-primary" ng-click="prevFile();" ng-disabled="apiMiddleware.apiHandler.inprocess || count <= 0"><<<</a>
+          </div>
+          <div class="btn-group">
+            <a > {{count+1}} of {{fileslist.length }} </a>
+          </div>
+          <div class="btn-group">
+            <a type="button" class="btn btn-primary" ng-click="nextFile();" ng-disabled="apiMiddleware.apiHandler.inprocess || (count == fileslist.length-1)"> >>> </a>
+          </div>
+          <div class="btn-group">
+            <a> {{fileslist[count].model.fileName | limitTo : 32}} </a>
+          </div>
+        </div>
+        <!-- <div class="row" style="margin: 10px;width: 100%;text-align: center;">
           <div class="col-md-2">
-            <button class="btn btn-primary" ng-click="prevFile();" ng-disabled="apiMiddleware.apiHandler.inprocess || count <= 0"> <<< </button>
+            <a class="btn btn-primary" ng-click="downloadSingleFile();"> Download </a>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-primary" ng-click="nextFile();" ng-disabled="apiMiddleware.apiHandler.inprocess || (count == fileslist.length-1)"> >>></button>
+            <a class="btn btn-primary" ng-click="prevFile();" ng-disabled="apiMiddleware.apiHandler.inprocess || count <= 0"> <<< </a>
           </div>
           <div class="col-md-2">
             <span>{{count+1}} of {{fileslist.length }}</span>
           </div>
-          <div class="col-md-5">
-            <span>{{fileslist[count].model.fileName | limitTo : 32}}</span>
+          <div class="col-md-2">
+            <a type="button" class="btn btn-primary" ng-click="nextFile();" ng-disabled="apiMiddleware.apiHandler.inprocess || (count == fileslist.length-1)"> >>></a>
           </div>
-        </div>
+          <div class="col-md-4">
+            <p>{{fileslist[count].model.fileName | limitTo : 32}}</p>
+          </div>
+        </div> -->
         <div class="text-center">
-          <img id="imagepreview-target" class="preview" alt="{{singleSelection().model.name}}" ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" ng-if="fileslist[count].model.fileType.indexOf('image') > -1">
-          <iframe  id="pdfpreview-target" class="preview" alt="{{singleSelection().model.name}}"  ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" style="width: 100%;height: calc(80vh - 180px);border: none;"  ng-if="fileslist[count].model.fileType.indexOf('pdf') > -1">
+          <img id="imagepreview-target" src="{{fileSrc}}" class="preview" alt="{{singleSelection().tempModel.fileName}}" ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" ng-if="fileslist[count].model.fileType.indexOf('image') > -1">
+          <iframe  id="pdfpreview-target" src="{{fileSrc | trustThisUrl}}"  class="preview" alt="{{singleSelection().tempModel.fileName}}"  ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" style="width: 100%;height: calc(80vh - 180px);border: none;"  ng-if="fileslist[count].model.fileType.indexOf('pdf') > -1">
           </iframe>
           <span class="label label-warning" ng-show="apiMiddleware.apiHandler.inprocess">Loading ...</span>
         </div>

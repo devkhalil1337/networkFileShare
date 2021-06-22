@@ -74,6 +74,12 @@
             return this.apiHandler.getContent(apiUrl,itemId);
         };
 
+        ApiMiddleware.prototype.downloadSingleFile = function(item) {
+            let itemId = item.tempModel.id;
+            let toFilename = item.model.fileName;
+            return this.apiHandler.downloadSingleFile(itemId,toFilename);
+        };
+
         ApiMiddleware.prototype.edit = function(item) {
             var itemPath = this.getFilePath(item);
             return this.apiHandler.edit(fileManagerConfig.editUrl, itemPath, item.tempModel.content);

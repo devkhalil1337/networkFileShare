@@ -25,6 +25,12 @@
         };
     }]);
 
+    app.filter('trustThisUrl', ["$sce", function ($sce) {
+        return function (val) {
+            return $sce.trustAsResourceUrl(val);
+        };
+    }]);
+
     app.filter('humanReadableFileSize', ['$filter', 'fileManagerConfig', function($filter, fileManagerConfig) {
       // See https://en.wikipedia.org/wiki/Binary_prefix
       var decimalByteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
