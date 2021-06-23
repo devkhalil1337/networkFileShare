@@ -3,6 +3,7 @@
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
         '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiMiddleware',
         function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiMiddleware) {
+        $scope.user = "admin";
 
         var $storage = $window.localStorage;
         $scope.config = fileManagerConfig;
@@ -264,6 +265,12 @@
         }
 
         $scope.isTrashFolder = function(){
+            if($scope.isTrashPath()){
+                console.log("it is trash folder");
+                $scope.config.allowedActions.remove = $scope.user == "admin";
+            }else{
+                $scope.config.allowedActions.remove = true;
+            }
             return ($scope.singleSelection() && ($scope.singleSelection().tempModel.fileName == 'Trash' || $scope.singleSelection().tempModel.fileName == 'trash'))
         }
 
