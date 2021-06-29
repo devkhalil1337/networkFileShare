@@ -45,7 +45,7 @@
         </div> -->
         <div class="text-center">
           <img id="imagepreview-target" src="{{fileSrc}}" class="preview" alt="{{singleSelection().tempModel.fileName}}" ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" ng-if="fileslist[count].model.fileType.indexOf('image') > -1">
-          <iframe  id="pdfpreview-target" src="{{fileSrc | trustThisUrl}}"  class="preview" alt="{{singleSelection().tempModel.fileName}}"  ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" style="width: 100%;height: calc(80vh - 180px);border: none;"  ng-if="fileslist[count].model.fileType.indexOf('pdf') > -1">
+          <iframe  id="pdfpreview-target" src="{{fileSrc}}"  class="preview" alt="{{singleSelection().tempModel.fileName}}"  ng-class="{'loading': apiMiddleware.apiHandler.inprocess}" style="width: 100%;height: calc(80vh - 180px);border: none;"  ng-if="fileslist[count].model.fileType.indexOf('pdf') > -1">
           </iframe>
           <span class="label label-warning" ng-show="apiMiddleware.apiHandler.inprocess">Loading ...</span>
         </div>
@@ -493,6 +493,15 @@
           <h4 class="modal-title">Edit file</h4>
         </div>
         <div class="modal-body">
+          <div class="row" ng-if="selectedItem.model.thumbnail">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="text-center">
+                  <img src="data:image/png;base64,{{selectedItem.model.thumbnail}} " class="rounded" alt="...">
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group ">

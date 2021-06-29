@@ -32,6 +32,7 @@
                 fileUploadDate: model && model.fileUploadDate || null,
                 fileReceivedDate: model && model.fileReceivedDate || null,
                 subFolderLink: model && model.subFolderLink || null,
+                thumbnail:  model && model.thumbnail || null,
                 fullPath: function(currentFilePath) {
                     let path = '';
                     let isUnixFormat = fileManagerConfig.basePath && fileManagerConfig.basePath.length > 1 && fileManagerConfig.basePath[0] === '/';
